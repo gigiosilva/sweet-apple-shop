@@ -50,7 +50,7 @@ export const ProductCard = (props: Props) => {
       </Box>
       <Stack>
         <Stack spacing="1">
-          <Text fontWeight="medium" color={useColorModeValue('gray.700', 'gray.400')}>
+          <Text fontWeight="medium" fontSize={{ base: '15px', sm: 'inherit' }} color={useColorModeValue('gray.700', 'gray.400')}>
             {name}
           </Text>
           <PriceTag price={price + 10} salePrice={price} currency="USD" />
