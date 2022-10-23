@@ -1,13 +1,11 @@
-import { getProducts } from '~/services/product.server';
 import { test, expect } from '@playwright/test';
 
 test.describe('Product Page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await page.goto('/');
   });
-  
-  test('products page loads at least one product', async ({ page }) => {
 
+  test('products page loads at least one product', async ({ page }) => {
     await page.waitForURL(/products/);
     await page.waitForSelector('text=Add to cart');
 
@@ -18,14 +16,13 @@ test.describe('Product Page', () => {
   });
 
   test('products page search products and clean input', async ({ page }) => {
-
     await page.getByPlaceholder('Search here').fill('Apple');
     await page.getByPlaceholder('Search here').press('Enter');
 
     await page.waitForResponse('**/products?search=Apple**');
 
     await expect(page).toHaveURL('http://localhost:3000/products?search=Apple');
-    
+
     const getProductsSearched = await page.locator('img');
     await expect(await getProductsSearched.count()).toBe(3);
 
@@ -40,7 +37,6 @@ test.describe('Product Page', () => {
   });
 
   test('products page open product details', async ({ page }) => {
-
     await page.locator('.chakra-link').first().click();
 
     await page.waitForSelector('text=2-3 business days delivery');
@@ -54,7 +50,6 @@ test.describe('Product Page', () => {
   });
 
   test('products page add product to cart', async ({ page }) => {
-      
     await page.locator('.chakra-button').first().click();
 
     await expect(page).toHaveURL(/cart/);
@@ -66,7 +61,6 @@ test.describe('Product Page', () => {
   });
 
   test('products page go to empty cart', async ({ page }) => {
-
     await page.locator('nav[role="navigation"]:has-text("🍎 Sweet Apple Store") svg').nth(2).click();
 
     await page.waitForURL(/cart/);

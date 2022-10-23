@@ -1,13 +1,11 @@
-import { getProducts } from '~/services/product.server';
 import { test, expect } from '@playwright/test';
 
 test.describe('Product Details Page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/products/1e780016-94ef-4063-9fbb-fbafbabb636e");
+    await page.goto('/products/1e780016-94ef-4063-9fbb-fbafbabb636e');
   });
 
   test('product details adds product to cart', async ({ page }) => {
-
     await page.locator('.chakra-button').first().click();
 
     await expect(page).toHaveURL(/cart/);
@@ -19,8 +17,7 @@ test.describe('Product Details Page', () => {
   });
 
   test('product details not found', async ({ page }) => {
-
-    await page.goto("/products/4392");
+    await page.goto('/products/4392');
 
     const getProductNotFound = await page.getByText('Product not found');
     await expect(getProductNotFound).toBeVisible();

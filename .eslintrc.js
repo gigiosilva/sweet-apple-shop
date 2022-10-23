@@ -2,10 +2,7 @@ module.exports = {
   extends: [
     '@remix-run/eslint-config',
     '@remix-run/eslint-config/node',
-    'airbnb',
-    'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
   ],
   rules: {
     'react/jsx-props-no-spreading': 'off',
@@ -33,5 +30,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'react/no-unused-prop-types': 'off',
     'prefer-destructuring': 'off',
+    'quotes': [2, 'single', { 'avoidEscape': true }]
   },
 };

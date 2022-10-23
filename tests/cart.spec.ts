@@ -1,16 +1,14 @@
-import { getProducts } from '~/services/product.server';
 import { test, expect } from '@playwright/test';
 
 test.describe('Cart Page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await page.goto('/');
     await page.locator('.chakra-button').first().click();
     await expect(page).toHaveURL(/cart/);
     await page.waitForSelector('text=Shopping Cart');
   });
 
   test('change cart item quantity and update total', async ({ page }) => {
-
     const cartItems = await page.locator('img');
     await expect(await cartItems.count()).toBe(1);
 
@@ -24,7 +22,6 @@ test.describe('Cart Page', () => {
   });
 
   test('remove item from cart', async ({ page }) => {
-
     const cartItems = await page.locator('img');
     await expect(await cartItems.count()).toBe(1);
 
@@ -39,7 +36,6 @@ test.describe('Cart Page', () => {
   });
 
   test('adding shipping and coupon', async ({ page }) => {
-
     const cartItems = await page.locator('img');
     await expect(await cartItems.count()).toBe(1);
 

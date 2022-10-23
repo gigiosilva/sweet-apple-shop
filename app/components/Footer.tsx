@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   ButtonGroup, IconButton, Stack, Text, useColorMode,
 } from '@chakra-ui/react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
