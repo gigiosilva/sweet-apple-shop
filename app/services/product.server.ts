@@ -18,6 +18,7 @@ export const getProduct = async (id: string | undefined) => {
 };
 
 export const postOrder = async (order: any) => {
+  console.log(order);
   const { data: orderResponse } = await axios.post(`${API_URL}/orders`, order);
   return orderResponse;
 };

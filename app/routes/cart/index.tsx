@@ -8,6 +8,8 @@ import {
   useColorModeValue as mode,
   VStack,
   Button,
+  FormControl,
+  Input,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { CartItem } from '~/components/cart/CartItem';
@@ -27,10 +29,10 @@ export const action: ActionFunction = async ({ request }) => {
     productId: p.id,
     quantity: p.quantity,
   }));
+  const name = formData.get('name')?.toString();
+  const deliveryAddress = formData.get('deliveryAddress')?.toString();
 
-  const customerName = `Customer${new Date().getTime()}`;
-  const customerAddress = '123 Main St';
-  return postOrder({ customerName, customerAddress, items });
+  return postOrder({ name, deliveryAddress, items });
 };
 
 export default function CartPage() {
@@ -39,9 +41,22 @@ export default function CartPage() {
   const [total, setTotal] = useState<number>(0);
   const [discount, setDiscount] = useState<boolean>(false);
   const [cartCount, setCartCount] = useState<number>(1);
+  const [nameInput, setNameInput] = useState('');
+  const [addressInput, setAddressInput] = useState('');
+  const [nameInputError, setNameInputError] = useState(false);
+  const [addressInputError, setAddressInputError] = useState(false);
 
   const navigate = useNavigate();
   const fetcher = useFetcher();
+
+  const handleNameInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameInput(e.target.value);
+    setNameInputError(false);
+  };
+  const handleAddressInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddressInput(e.target.value);
+    setAddressInputError(false);
+  };
 
   useEffect(() => {
     document.title = 'Sweet Apple Store | Cart';
@@ -87,8 +102,15 @@ export default function CartPage() {
   };
 
   const placeOrder = async () => {
+    if (!nameInput) setNameInputError(true);
+    if (!addressInput) setAddressInputError(true);
+    if (!nameInput || !addressInput) return;
+
     const formData = new FormData();
     formData.append('cart', JSON.stringify(cart));
+    formData.append('name', nameInput);
+    formData.append('deliveryAddress', addressInput);
+
     fetcher.submit(formData, { method: 'post' });
     localStorage.removeItem('cart');
     navigate('/products?orderPlaced=true');
@@ -131,7 +153,14 @@ export default function CartPage() {
             total={total}
             onCheckout={() => placeOrder()}
             onDiscount={(applied) => setDiscount(applied)}
-          />
+          >
+            <FormControl>
+              <VStack spacing={5}>
+                <Input isInvalid={nameInputError} type='text' value={nameInput} onChange={handleNameInputChange} placeholder='Name' />
+                <Input isInvalid={addressInputError} type='text' value={addressInput} onChange={handleAddressInputChange} placeholder='Delivery Address' />
+              </VStack>
+            </FormControl>  
+          </ CartOrderSummary>
           <HStack mt="6" fontWeight="semibold">
             <p>or</p>
             <Link

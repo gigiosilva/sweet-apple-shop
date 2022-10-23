@@ -51,7 +51,11 @@ test.describe('Cart Page', () => {
     await expect(await totalValue.count()).toBe(1);
   });
 
-  test.only('place order', async ({ page }) => {
+  test('place order', async ({ page }) => {
+
+    await page.getByPlaceholder('Name').fill('Customer Name');
+    await page.getByPlaceholder('Delivery Address').fill('Customer Address');
+
     await page.getByRole('button', { name: 'Place Order' }).click();
     await expect(page).toHaveURL('http://localhost:3000/products?orderPlaced=true');
 

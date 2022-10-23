@@ -39,6 +39,7 @@ type OrderSummaryProps = {
   total: number;
   onCheckout: () => void;
   onDiscount: (applied: boolean) => void;
+  children?: React.ReactNode;
 }
 
 export const CartOrderSummary = (props: OrderSummaryProps) => {
@@ -46,7 +47,7 @@ export const CartOrderSummary = (props: OrderSummaryProps) => {
   const [shipping, setShipping] = React.useState(false);
 
   const {
-    subtotal, total, onCheckout, onDiscount,
+    subtotal, total, onCheckout, onDiscount, children
   } = props;
 
   const addDiscount = (applied: boolean) => {
@@ -88,6 +89,9 @@ export const CartOrderSummary = (props: OrderSummaryProps) => {
             </Link>
           )}
         </OrderSummaryItem>
+        
+        {children}
+
         <Flex justify="space-between">
           <Text fontSize="lg" fontWeight="semibold">
             Total

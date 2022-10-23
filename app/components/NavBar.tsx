@@ -53,9 +53,9 @@ export const NavBar = () => {
             onClick={() => navigate('.')}
             cursor="pointer"
             minWidth={{ base: '80px', md: '260px' }}
-            fontSize={{ base: 'md', md: '2xl' }}
+            fontSize={{ base: '30px', md: '2xl' }}
           >
-            🍎 Sweet Apple Store
+            {useBreakpointValue({ base: '🍎', md: '🍎 Sweet Apple Store' })}
           </Text>
 
           <Flex ml={{ base: 0, md: 10 }} width="100%">
