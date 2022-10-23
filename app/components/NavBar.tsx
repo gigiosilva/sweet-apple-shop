@@ -13,12 +13,17 @@ import {
 } from '@chakra-ui/react';
 import { BsCart4, BsSearch } from 'react-icons/bs';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import { useNavigate } from '@remix-run/react';
+import { useLocation, useNavigate } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 
 export const NavBar = () => {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.search) setSearch('');
+  }, [location])
 
   return (
     <Box as="nav" role="navigation" bg="bg-accent">
@@ -77,7 +82,7 @@ export const NavBar = () => {
               children={<AiOutlineCloseCircle />}
               onClick={() => {
                 setSearch('');
-                navigate(`/products`);
+                navigate('/products');
               }}
             />
             </InputGroup>

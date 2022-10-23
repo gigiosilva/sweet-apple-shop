@@ -1,13 +1,14 @@
 import type { LoaderFunction } from '@remix-run/node';
-import {
-  useLoaderData, useNavigate, useSearchParams,
-} from '@remix-run/react';
+import { useLoaderData, useNavigate, useSearchParams } from '@remix-run/react';
 import { ProductGrid } from '~/components/products/ProductGrid';
 import type { Product } from '~/models/Product';
 import { ProductCard } from '~/components/products/ProductCard';
 import { OrderPlacedModal } from '~/components/OrderPlacedModal';
 import { getProducts } from '~/services/product.server';
 import { useEffect } from 'react';
+import { Box, Button, Heading, VStack } from '@chakra-ui/react';
+import noProductFoundAnimation from '../../../public/105560-no-product.json';
+import Lottie from 'lottie-react';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -39,7 +40,7 @@ export default function ProductsPage() {
     navigate('/cart');
   };
 
-  return (
+  return products.length > 0 ? (
     <>
       <ProductGrid>
         {products.map((product) => (
@@ -53,5 +54,17 @@ export default function ProductsPage() {
       </ProductGrid>
       {orderPlaced && <OrderPlacedModal />}
     </>
+  ) : (
+    <VStack justify="flex-start" spacing={10} minH="Calc(80vh)">
+      <Box width={{ base: '70%', lg: '40%' }}>
+        <Lottie animationData={noProductFoundAnimation} loop={false} />
+      </Box>
+      <Heading fontSize="2xl" fontWeight="extrabold">
+        Product not found
+      </Heading>
+      <Button colorScheme="blue" onClick={() => navigate('/')}>
+        Go Back
+      </Button>
+    </VStack>
   );
 }

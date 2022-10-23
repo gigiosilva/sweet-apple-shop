@@ -14,15 +14,15 @@ import {
 
 import { ClientStyleContext, ServerStyleContext } from '~/lib/emotion/context';
 import { theme } from '~/lib/theme';
-import {
-  Heading, VStack, Text, ChakraProvider, Box,
+import { ChakraProvider, Box,
 } from '@chakra-ui/react';
 import { NavBar } from './components/NavBar';
 import { Footer } from './components/Footer';
+import { NotFound } from './components/NotFound';
 
 export const meta: MetaFunction = () => ({ title: 'Sweet Apple Store' });
 
-export default function App() {
+export default function App() { 
   return (
     <Document>
       <NavBar />
@@ -43,52 +43,21 @@ export default function App() {
 
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error('Boundary:', error);
+  
   return (
     <Document>
-      <VStack h="100vh" justify="center" p={20}>
-        <Heading>404</Heading>
-        <Text>{error.message}</Text>
-        <hr />
-      </VStack>
+      <NotFound />
     </Document>
   );
 }
 
 export function CatchBoundary() {
   const caught = useCatch();
-  let message;
-  switch (caught.status) {
-    case 401:
-      message = (
-        <Text>
-          Oops! Looks like you tried to visit a page that you do not have access
-          to.
-        </Text>
-      );
-      break;
-    case 404:
-      message = (
-        <Text>
-          Oops! Looks like you tried to visit a page that does not exist.
-        </Text>
-      );
-      break;
-
-    default:
-      throw new Error(caught.data || caught.statusText);
-  }
+  console.log('Catch:', caught);
 
   return (
     <Document>
-      <VStack h="100vh" justify="center" p={20}>
-        <Heading>
-          {caught.status}
-          :
-          {' '}
-          {caught.statusText}
-        </Heading>
-        {message}
-      </VStack>
+      <NotFound />
     </Document>
   );
 }
