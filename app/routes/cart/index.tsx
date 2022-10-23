@@ -23,14 +23,14 @@ import cartEmptyAnimation from '../../../public/112087-empty.json';
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const cart = JSON.parse(formData.get('cart')?.toString() || '[]').map((p: Product) => ({
+  const items = JSON.parse(formData.get('cart')?.toString() || '[]').map((p: Product) => ({
     productId: p.id,
     quantity: p.quantity,
   }));
 
   const customerName = `Customer${new Date().getTime()}`;
   const customerAddress = '123 Main St';
-  return postOrder({ customerName, customerAddress, cart });
+  return postOrder({ customerName, customerAddress, items });
 };
 
 export default function CartPage() {
@@ -42,6 +42,10 @@ export default function CartPage() {
 
   const navigate = useNavigate();
   const fetcher = useFetcher();
+
+  useEffect(() => {
+    document.title = 'Sweet Apple Store | Cart';
+  });
 
   useEffect(() => {
     const products = JSON.parse(localStorage.getItem('cart') || '[]');

@@ -7,6 +7,7 @@ import type { Product } from '~/models/Product';
 import { ProductCard } from '~/components/products/ProductCard';
 import { OrderPlacedModal } from '~/components/OrderPlacedModal';
 import { getProducts } from '~/services/product.server';
+import { useEffect } from 'react';
 
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
@@ -20,6 +21,10 @@ export default function ProductsPage() {
   const navigate = useNavigate();
 
   const orderPlaced = params.get('orderPlaced') === 'true';
+
+  useEffect(() => {
+    document.title = 'Sweet Apple Store | Products';
+  });
 
   const addProductToCart = (product: Product) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');

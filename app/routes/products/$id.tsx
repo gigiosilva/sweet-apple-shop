@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import type { LoaderFunction } from '@remix-run/node';
 import { useLoaderData, useNavigate } from '@remix-run/react';
+import { useEffect } from 'react';
 import { MdLocalShipping } from 'react-icons/md';
 import { PriceTag } from '~/components/products/PriceTag';
 import { Rating } from '~/components/products/Rating';
@@ -21,13 +22,18 @@ import { getProduct } from '~/services/product.server';
 
 export const loader: LoaderFunction = async ({ params }) => {
   const product = await getProduct(params.id);
-  if (!product) throw new Error('Product not found');
   return product;
 };
 
 export default function ProductDetailsPage() {
   const productData: Product = useLoaderData();
   const navigate = useNavigate();
+
+  if (!productData) throw new Error('Product not found');
+
+  useEffect(() => {
+    document.title = `Sweet Apple Store | ${productData.name}`;
+  });
 
   const addProductToCart = (product: Product) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
