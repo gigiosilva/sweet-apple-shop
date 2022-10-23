@@ -21,7 +21,7 @@ export const Footer = () => {
           {' '}
           {new Date().getFullYear()}
           {' '}
-          Giovani Silva, Inc. All rights reserved.
+          Giovani Silva.
         </Text>
         <Stack justify="space-between" direction="row" align="center">
           <Button size="sm" onClick={toggleColorMode}>

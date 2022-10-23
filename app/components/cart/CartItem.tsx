@@ -88,7 +88,7 @@ export const CartItem = (props: CartItemProps) => {
           Delete
         </Link>
         <QuantitySelect
-          value={3}
+          value={(quantity || 1)}
           onChange={(e) => {
             onChangeQuantity?.(+e.currentTarget.value);
           }}

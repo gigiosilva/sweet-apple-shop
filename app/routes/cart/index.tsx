@@ -142,7 +142,7 @@ export default function CartPage() {
         </Flex>
       </Stack>
     ) : (
-      <VStack justify="center" spacing={10}>
+      <VStack justify="center" spacing={10} minH="Calc(100vh - 200px)">
         <Box width={{ base: '60%', lg: '40%' }}>
           <Lottie animationData={cartEmptyAnimation} loop={false} />
         </Box>
