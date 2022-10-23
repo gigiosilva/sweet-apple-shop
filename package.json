@@ -4,7 +4,11 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "cross-env NODE_ENV=production netlify dev"
+    "start": "cross-env NODE_ENV=production netlify dev",
+    "test": "npx playwright test",
+    "test:report": "npx playwright show-report",
+    "test:debug": "npx playwright test --debug",
+    "test:generate": "npx playwright codegen localhost:3000"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.11",
@@ -26,12 +30,13 @@
     "react-icons": "^4.6.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.27.1",
     "@remix-run/dev": "^1.7.3",
     "@remix-run/eslint-config": "^1.7.3",
     "@remix-run/serve": "^1.7.3",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
-    "eslint": "^8.2.0",
+    "eslint": "^8.26.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
