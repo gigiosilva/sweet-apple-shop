@@ -50,4 +50,12 @@ test.describe('Cart Page', () => {
     const totalValue = await page.getByText('$22.50');
     await expect(await totalValue.count()).toBe(1);
   });
+
+  test.only('place order', async ({ page }) => {
+    await page.getByRole('button', { name: 'Place Order' }).click();
+    await expect(page).toHaveURL('http://localhost:3000/products?orderPlaced=true');
+
+    const orderPlacedText = await page.getByText('Order Placed');
+    await expect(orderPlacedText).toBeVisible();
+  });
 });
