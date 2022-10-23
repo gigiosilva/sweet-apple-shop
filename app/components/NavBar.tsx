@@ -7,10 +7,14 @@ import {
   useColorModeValue,
   useBreakpointValue,
   Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
 } from '@chakra-ui/react';
-import { BsCart4 } from 'react-icons/bs';
+import { BsCart4, BsSearch } from 'react-icons/bs';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useNavigate } from '@remix-run/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const NavBar = () => {
   const [search, setSearch] = useState('');
@@ -50,17 +54,33 @@ export const NavBar = () => {
           </Text>
 
           <Flex ml={{ base: 0, md: 10 }} width="100%">
+          <InputGroup 
+              maxWidth={500}
+              mr={30}>
+            <InputLeftElement
+              pointerEvents='none'
+              children={<BsSearch color='gray.300' />}
+            />
             <Input
               variant="filled"
               placeholder="Search here"
-              maxWidth={500}
-              mr={30}
+              value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyPress={(event) => {
                 if (event.key === 'Enter') navigate(`/products?search=${search}`);
               }}
               onBlur={() => navigate(`/products?search=${search}`)}
             />
+            <InputRightElement
+              hidden={search === ''} 
+              cursor="pointer"
+              children={<AiOutlineCloseCircle />}
+              onClick={() => {
+                setSearch('');
+                navigate(`/products`);
+              }}
+            />
+            </InputGroup>
           </Flex>
         </Flex>
 

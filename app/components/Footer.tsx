@@ -4,6 +4,7 @@ import {
   ButtonGroup, IconButton, Stack, Text, useColorMode,
 } from '@chakra-ui/react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 
 export const Footer = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -24,12 +25,13 @@ export const Footer = () => {
           Giovani Silva.
         </Text>
         <Stack justify="space-between" direction="row" align="center">
-          <Button size="sm" onClick={toggleColorMode}>
-            Toggle
-            {' '}
-            {colorMode === 'light' ? 'Dark' : 'Light'}
-          </Button>
           <ButtonGroup variant="ghost">
+            <IconButton
+                aria-label="Color Mode"
+                onClick={toggleColorMode}
+                icon={colorMode === 'light' ? <BsFillMoonFill /> : <BsFillSunFill />}
+                scale="2xl"
+              />
             <IconButton
               as="a"
               target="_blank"
