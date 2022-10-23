@@ -53,7 +53,7 @@ export const NavBar = () => {
             onClick={() => navigate('.')}
             cursor="pointer"
             minWidth={{ base: '80px', md: '260px' }}
-            fontSize={{ base: '30px', md: '2xl' }}
+            fontSize={{ base: '35px', md: '2xl' }}
           >
             {useBreakpointValue({ base: '🍎', md: '🍎 Sweet Apple Store' })}
           </Text>
@@ -61,7 +61,7 @@ export const NavBar = () => {
           <Flex ml={{ base: 0, md: 10 }} width="100%">
           <InputGroup 
               maxWidth={500}
-              mr={30}>
+              mr={9}>
             <InputLeftElement
               pointerEvents='none'
               children={<BsSearch color='gray.300' />}
