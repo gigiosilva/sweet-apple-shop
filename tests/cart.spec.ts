@@ -14,7 +14,7 @@ test.describe('Cart Page', () => {
 
     await page.getByRole('combobox', { name: 'Select quantity' }).selectOption('4');
 
-    const productValue = await page.getByText('$25.00');
+    const productValue = await page.getByText('$100.00');
     await expect(await productValue.count()).toBeGreaterThan(1);
 
     const totalValue = await page.getByText('$100.00');
