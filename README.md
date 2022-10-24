@@ -11,6 +11,10 @@
   <p align="center">
     <a target="_blank" href="https://sweet-apple-acres.netlify.app">Requirements</a>
   </p>
+
+## Live Demo
+
+- [Sweet Apple Store](https://sweet-apple-store.netlify.app)
   
 ## What is the Stack?
 
