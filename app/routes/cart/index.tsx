@@ -45,6 +45,7 @@ export default function CartPage() {
   const [addressInput, setAddressInput] = useState('');
   const [nameInputError, setNameInputError] = useState(false);
   const [addressInputError, setAddressInputError] = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
 
   const navigate = useNavigate();
   const fetcher = useFetcher();
@@ -106,6 +107,8 @@ export default function CartPage() {
     if (!addressInput) setAddressInputError(true);
     if (!nameInput || !addressInput) return;
 
+    setOrderLoading(true);
+
     const formData = new FormData();
     formData.append('cart', JSON.stringify(cart));
     formData.append('name', nameInput);
@@ -153,6 +156,7 @@ export default function CartPage() {
             total={total}
             onCheckout={() => placeOrder()}
             onDiscount={(applied) => setDiscount(applied)}
+            isLoading={orderLoading}
           >
             <FormControl>
               <VStack spacing={5}>
