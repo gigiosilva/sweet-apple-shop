@@ -1,8 +1,6 @@
-name: "Tests: E2E"
+name: "Tests preview: E2E"
 
 on:
-  push:
-    branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
 
