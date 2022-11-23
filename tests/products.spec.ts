@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Product Page', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+  test.beforeEach(async ({ page, baseURL }) => {
+    await page.goto(baseURL + '/');
   });
 
   test('products page loads at least one product', async ({ page }) => {

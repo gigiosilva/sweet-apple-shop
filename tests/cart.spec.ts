@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Cart Page', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+  test.beforeEach(async ({ page, baseURL }) => {
+    await page.goto(baseURL + '/');
     await page.locator('.chakra-button').first().click();
     await expect(page).toHaveURL(/cart/);
     await page.waitForSelector('text=Shopping Cart');
