@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  HStack,
 } from '@chakra-ui/react';
 import { BsCart4, BsSearch } from 'react-icons/bs';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
@@ -46,17 +47,32 @@ export const NavBar = () => {
           display={{ md: 'none' }}
         />
         <Flex flex={{ base: 1 }} justify={{ md: 'start' }} alignItems="center">
-          <Text
-            textAlign={useBreakpointValue({ md: 'left' })}
-            fontFamily="heading"
-            color={useColorModeValue('gray.800', 'white')}
-            onClick={() => navigate('.')}
-            cursor="pointer"
-            minWidth={{ base: '80px', md: '260px' }}
-            fontSize={{ base: '35px', md: '2xl' }}
-          >
-            {useBreakpointValue({ base: '🍎', md: '🍎 Sweet Apple Store' })}
-          </Text>
+          <HStack>
+            <Text
+              display={{ base: 'block', md: 'none' }}
+              textAlign={useBreakpointValue({ md: 'left' })}
+              fontFamily="heading"
+              color={useColorModeValue('gray.800', 'white')}
+              onClick={() => navigate('.')}
+              cursor="pointer"
+              minWidth={{ base: '80px', md: '260px' }}
+              fontSize={{ base: '35px', md: '2xl' }}
+            >
+              🍎
+            </Text>
+            <Text
+              display={{ base: 'none', md: 'block' }}
+              textAlign={useBreakpointValue({ md: 'left' })}
+              fontFamily="heading"
+              color={useColorModeValue('gray.800', 'white')}
+              onClick={() => navigate('.')}
+              cursor="pointer"
+              minWidth={{ base: '80px', md: '260px' }}
+              fontSize={{ base: '35px', md: '2xl' }}
+            >
+              🍎 Sweet Apple Store
+            </Text>
+          </HStack>
 
           <Flex ml={{ base: 0, md: 10 }} width="100%">
           <InputGroup 

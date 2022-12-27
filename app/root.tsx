@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { useEffect, useContext } from 'react';
 import { withEmotionCache } from '@emotion/react';
-import type { MetaFunction } from '@remix-run/node';
+import type { LoaderFunction, MetaFunction } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -10,15 +10,20 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from '@remix-run/react';
 
 import { ClientStyleContext, ServerStyleContext } from '~/lib/emotion/context';
 import { theme } from '~/lib/theme';
-import { ChakraProvider, Box,
+import { ChakraProvider, Box, ColorModeScript, cookieStorageManagerSSR, localStorageManager
 } from '@chakra-ui/react';
 import { NavBar } from './components/NavBar';
 import { Footer } from './components/Footer';
 import { NotFound } from './components/NotFound';
+
+export const loader: LoaderFunction = async ({ request }) => {
+  return request.headers.get('cookie') ?? '';
+};
 
 export const meta: MetaFunction = () => ({ title: 'Sweet Apple Store' });
 
@@ -70,6 +75,7 @@ const Document = withEmotionCache(
   ({ children }: DocumentProps, emotionCache) => {
     const serverSyleData = useContext(ServerStyleContext);
     const clientStyleData = useContext(ClientStyleContext);
+    const cookies = useLoaderData();
 
     // Only executed on client
     useEffect(() => {
@@ -107,7 +113,13 @@ const Document = withEmotionCache(
           ))}
         </head>
         <body>
-          <ChakraProvider theme={theme}>{children}</ChakraProvider>
+          <ColorModeScript  type="cookie" />
+          <ChakraProvider theme={theme}
+            colorModeManager={typeof cookies === 'string'
+            ? cookieStorageManagerSSR(cookies)
+            : localStorageManager
+          }
+          >{children}</ChakraProvider>
           <ScrollRestoration />
           <Scripts />
           {process.env.NODE_ENV === 'development' ? <LiveReload /> : null}

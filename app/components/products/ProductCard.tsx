@@ -9,7 +9,6 @@ import {
   Link,
   Stack,
   Text,
-  useBreakpointValue,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { Link as RemixLink } from '@remix-run/react';
@@ -34,7 +33,7 @@ export const ProductCard = (props: Props) => {
   } = product;
 
   return (
-    <Stack spacing={useBreakpointValue({ base: '4', md: '5' })} {...rootProps}>
+    <Stack spacing={{ base: '4', md: '5' }} {...rootProps}>
       <Box position="relative">
         <AspectRatio ratio={4 / 3}>
           <Image
@@ -43,7 +42,7 @@ export const ProductCard = (props: Props) => {
             draggable="false"
             cursor="pointer"
             fallback={<Skeleton />}
-            borderRadius={useBreakpointValue({ base: 'md', md: 'xl' })}
+            borderRadius={{ base: 'md', md: 'xl' }}
             onClick={onClickDetails}
           />
         </AspectRatio>
